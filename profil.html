@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>profil - PropertiHub</title>
+        <link href="/dist/output.css" rel="stylesheet"> <!-- Tautkan output Tailwind -->
+    </head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-blue-500">PropertiHub</h1>
+            <ul class="flex space-x-6">
+                <li><a href="Dashboard.html" class="text-gray-600 hover:text-blue-500">Home</a></li>
+                <li><a href="properti.html" class="text-gray-600 hover:text-blue-500">Properti</a></li>
+                <li><a href="tamu.html" class="text-gray-600 hover:text-blue-500">Tamu</a></li>
+                <li><a href="komunikasi.html" class="text-gray-600 hover:text-blue-500">Komunikasi</a></li>
+                <li><a href="integrasi.html" class="text-gray-600 hover:text-blue-500">Integrasi</a></li>
+                <li><a href="profil.html" class="text-blue-500 font-bold">Profil</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-6">
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-2xl font-bold text-gray-700 mb-4">Profil Pengguna</h2>
+
+            <!-- Profil Informasi -->
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-gray-600">Nama</label>
+                    <p id="profile-name" class="text-gray-800 font-medium">Supri</p>
+                </div>
+                <div>
+                    <label class="block text-gray-600">Email</label>
+                    <p id="profile-email" class="text-gray-800 font-medium">Supridoe@gmail.com</p>
+                </div>
+                <div>
+                    <label class="block text-gray-600">Nomor Telepon</label>
+                    <p id="profile-phone" class="text-gray-800 font-medium">081234567890</p>
+                </div>
+            </div>
+
+            <!-- Tombol Edit -->
+            <div class="mt-6">
+                <button 
+                    id="edit-profile-btn" 
+                    class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+                    onclick="openEditProfileModal()">
+                    Edit Profil
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit Profil -->
+    <div id="edit-profile-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg p-6 w-96 shadow-lg">
+            <h3 class="text-xl font-bold text-gray-700 mb-4">Edit Profil</h3>
+            <form id="profile-form">
+                <div class="mb-4">
+                    <label class="block text-gray-600 mb-2">Nama</label>
+                    <input type="text" id="edit-name" class="w-full px-3 py-2 border rounded-lg" value="John Doe">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-600 mb-2">Email</label>
+                    <input type="email" id="edit-email" class="w-full px-3 py-2 border rounded-lg" value="johndoe@gmail.com">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-600 mb-2">Nomor Telepon</label>
+                    <input type="text" id="edit-phone" class="w-full px-3 py-2 border rounded-lg" value="081234567890">
+                </div>
+                <div class="flex justify-end">
+                    <button type="button" class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg mr-2" onclick="closeEditProfileModal()">Batal</button>
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi untuk Membuka Modal Edit Profil
+        function openEditProfileModal() {
+            document.getElementById("edit-profile-modal").classList.remove("hidden");
+
+            // Isi data di modal dengan data profil saat ini
+            document.getElementById("edit-name").value = document.getElementById("profile-name").innerText;
+            document.getElementById("edit-email").value = document.getElementById("profile-email").innerText;
+            document.getElementById("edit-phone").value = document.getElementById("profile-phone").innerText;
+        }
+
+        // Fungsi untuk Menutup Modal Edit Profil
+        function closeEditProfileModal() {
+            document.getElementById("edit-profile-modal").classList.add("hidden");
+        }
+
+        // Fungsi untuk Menyimpan Perubahan Profil
+        document.getElementById("profile-form").addEventListener("submit", (event) => {
+            event.preventDefault(); // Mencegah reload halaman
+
+            // Ambil data dari input form
+            const newName = document.getElementById("edit-name").value;
+            const newEmail = document.getElementById("edit-email").value;
+            const newPhone = document.getElementById("edit-phone").value;
+
+            // Perbarui data profil di halaman
+            document.getElementById("profile-name").innerText = newName;
+            document.getElementById("profile-email").innerText = newEmail;
+            document.getElementById("profile-phone").innerText = newPhone;
+
+            // Tutup modal
+            closeEditProfileModal();
+        });
+    </script>
+</body>
+</html>

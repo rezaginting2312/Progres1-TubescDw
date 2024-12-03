@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Komunikasi - PropertiHub</title>
+        <link href="/dist/output.css" rel="stylesheet"> <!-- Tautkan output Tailwind -->
+    </head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-blue-500">PropertiHub - Komunikasi Tamu</h1>
+            <ul class="flex space-x-6">
+                <li><a href="Dashboard.html" class="text-gray-600 hover:text-blue-500">Home</a></li>
+                <li><a href="properti.html" class="text-gray-600 hover:text-blue-500">Properti</a></li>
+                <li><a href="pesan.html" class="text-gray-600 hover:text-blue-500">Pemesanan</a></li>
+                <li><a href="komunikasi.html" class="text-gray-600 hover:text-blue-500">Komunikasi</a></li>
+                <li><a href="integrasi.html" class="text-gray-600 hover:text-blue-500">Integrasi</a></li>
+                <li><a href="profil.html" class="text-gray-600 hover:text-blue-500">Profil</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-6">
+        <!-- Section Editor Template Pesan -->
+        <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+            <h2 class="text-xl font-bold text-gray-700 mb-4">Editor Template Pesan</h2>
+            <form id="templateForm">
+                <label for="messageTemplate" class="block text-gray-700 font-medium mb-2">Template Pesan</label>
+                <textarea id="messageTemplate" class="w-full px-3 py-2 border border-gray-300 rounded-lg" rows="6" placeholder="Masukkan template pesan..."></textarea>
+                <small class="text-gray-500 block mt-2 mb-4">Gunakan placeholder seperti {nama_tamu}, {tanggal_check_in}, atau {tanggal_check_out}.</small>
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Simpan Template</button>
+            </form>
+        </div>
+
+        <!-- Section Riwayat Percakapan -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-gray-700">Riwayat Percakapan</h2>
+                <button id="newMessageBtn" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Pesan Baru</button>
+            </div>
+            <table class="min-w-full bg-white">
+                <thead>
+                    <tr>
+                        <th class="py-2 px-4 bg-gray-200 text-left text-gray-700">Nama Tamu</th>
+                        <th class="py-2 px-4 bg-gray-200 text-left text-gray-700">Pesan Terakhir</th>
+                        <th class="py-2 px-4 bg-gray-200 text-left text-gray-700">Tanggal</th>
+                        <th class="py-2 px-4 bg-gray-200 text-left text-gray-700">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="messageTable">
+                    <!-- Contoh Riwayat Percakapan -->
+                    <tr class="border-b">
+                        <td class="py-2 px-4">Supri</td>
+                        <td class="py-2 px-4">Halo, selamat datang di PropertiHub!</td>
+                        <td class="py-2 px-4">18 November 2024</td>
+                        <td class="py-2 px-4">
+                            <button onclick="openChat('Supri')" class="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600">Lihat Percakapan</button>
+                        </td>
+                    </tr>
+                    <!-- Data lain bisa ditambahkan di sini -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal Pesan Baru -->
+    <div id="newMessageModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h3 class="text-lg font-bold text-gray-700 mb-4">Kirim Pesan Baru</h3>
+            <form id="newMessageForm">
+                <label for="guestName" class="block text-gray-700 font-medium mb-2">Nama Tamu</label>
+                <input type="text" id="guestName" class="w-full px-3 py-2 border border-gray-300 rounded-lg mb-4" placeholder="Masukkan nama tamu">
+                <label for="messageText" class="block text-gray-700 font-medium mb-2">Pesan</label>
+                <textarea id="messageText" class="w-full px-3 py-2 border border-gray-300 rounded-lg" rows="4" placeholder="Tulis pesan..."></textarea>
+                <div class="mt-4 flex justify-end">
+                    <button type="button" onclick="closeNewMessageModal()" class="mr-2 bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Batal</button>
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Kirim Pesan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Riwayat Percakapan -->
+    <div id="chatModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h3 class="text-lg font-bold text-gray-700 mb-4">Percakapan dengan <span id="chatGuestName"></span></h3>
+            <div id="chatMessages" class="mb-4 text-gray-700">
+                <!-- Pesan dari tamu dan pemilik akan ditampilkan di sini -->
+            </div>
+            <textarea id="replyMessage" class="w-full px-3 py-2 border border-gray-300 rounded-lg" rows="3" placeholder="Balas pesan..."></textarea>
+            <div class="mt-4 flex justify-end">
+       

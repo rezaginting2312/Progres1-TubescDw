@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Properti - PropertiHub</title>
+        <link href="/dist/output.css" rel="stylesheet"> <!-- Tautkan output Tailwind -->
+    </head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-blue-500">PropertiHub - Manajemen Properti</h1>
+            <ul class="flex space-x-6">
+                <li><a href="Dashboard.html" class="text-gray-600 hover:text-blue-500">Home</a></li>
+                <li><a href="properti.html" class="text-gray-600 hover:text-blue-500">Properti</a></li>
+                <li><a href="pesan.html" class="text-gray-600 hover:text-blue-500">Pesan</a></li>
+                <li><a href="komunikasi.html" class="text-gray-600 hover:text-blue-500">Komunikasi</a></li>
+                <li><a href="integrasi.html" class="text-gray-600 hover:text-blue-500">Integrasi</a></li>
+                <li><a href="profil.html" class="text-gray-600 hover:text-blue-500">Profil</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-6">
+        <!-- Section Tambah atau Edit Properti -->
+        <div class="bg-white shadow-md rounded-lg p-6 mb-8">
+            <h2 class="text-xl font-bold text-gray-700 mb-4">Tambah / Edit Properti</h2>
+            <form id="propertyForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Judul Properti -->
+                <div>
+                    <label for="title" class="block text-gray-700 font-medium mb-2">Judul Properti</label>
+                    <input type="text" id="title" class="w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="Contoh: Villa Santorini">
+                </div>
+
+                <!-- Lokasi -->
+                <div>
+                    <label for="location" class="block text-gray-700 font-medium mb-2">Lokasi Properti</label>
+                    <input type="text" id="location" class="w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="Contoh: Bali">
+                </div>
+
+                <!-- Harga -->
+                <div>
+                    <label for="price" class="block text-gray-700 font-medium mb-2">Harga per Malam (IDR)</label>
+                    <input type="number" id="price" class="w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="Contoh: 2500000">
+                </div>
+
+                <!-- Fasilitas -->
+                <div>
+                    <label for="facilities" class="block text-gray-700 font-medium mb-2">Fasilitas</label>
+                    <textarea id="facilities" class="w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="Contoh: Kolam renang, Wi-Fi, Parkir gratis"></textarea>
+                </div>
+
+                <!-- Deskripsi Properti -->
+                <div class="col-span-1 md:col-span-2">
+                    <label for="description" class="block text-gray-700 font-medium mb-2">Deskripsi Properti</label>
+                    <textarea id="description" class="w-full px-3 py-2 border border-gray-300 rounded-lg" rows="4" placeholder="Deskripsikan properti Anda di sini..."></textarea>
+                </div>
+
+                <!-- Tombol Simpan -->
+                <div class="col-span-1 md:col-span-2 flex justify-end">
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Simpan Properti</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Section Galeri Foto Properti -->
+        <div class="bg-white shadow-md rounded-lg p-6 mb-8">
+            <h2 class="text-xl font-bold text-gray-700 mb-4">Galeri Foto Properti</h2>
+            <div class="flex items-center">
+                <input type="file" id="photoUpload" class="block text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none">
+                <button class="ml-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Unggah Foto</button>
+            </div>
+            <div id="gallery" class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+                <!-- Foto yang diunggah akan muncul di sini -->
+            </div>
+        </div>
+
+        <!-- Section Kalender Ketersediaan Properti -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-gray-700">Kalender Ketersediaan Properti</h2>
+                <button id="syncCalendarBtn" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Sinkronisasi Kalender Airbnb</button>
+            </div>
+            <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+                <!-- Kalender Properti Dummy -->
+                <div id="availabilityCalendar" class="text-center py-6">[Kalender Properti]</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white mt-10 shadow-md">
+        <div class="container mx-auto px-4 py-4 text-center text-gray-600">
+            © 2024 PropertiHub. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- JavaScript untuk Fungsi Interaktif -->
+    <script>
+        // Galeri Foto Properti (Dummy Upload)
+        document.querySelector('button').addEventListener('click', function() {
+            const photo = document.getElementById('photoUpload').files[0];
+            if (photo) {
+                const gallery = document.getElementById('gallery');
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.classList.add('w-full', 'h-40', 'object-cover', 'rounded-lg');
+                    gallery.appendChild(img);
+                }
+                reader.readAsDataURL(photo);
+            }
+        });
+
+        // Kalender Properti Dummy (Data dari API diimplementasikan di sini)
+        document.getElementById('syncCalendarBtn').addEventListener('click', function() {
+            alert('Sinkronisasi kalender Airbnb sedang berjalan...');
+            // Proses sinkronisasi dengan API Airbnb
+            document.getElementById('availabilityCalendar').innerHTML = `
+                <p>Ketersediaan Properti:</p>
+                <p>22 - 30 November: Dipesan</p>
+                <p>1 - 10 Desember: Tersedia</p>
+            `;
+        });
+
+        // Simpan Properti (dummy form handling)
+        document.getElementById('propertyForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Mencegah reload
+            const title = document.getElementById('title').value;
+            const location = document.getElementById('location').value;
+            const price = document.getElementById('price').value;
+            const facilities = document.getElementById('facilities').value;
+            const description = document.getElementById('description').value;
+
+            alert(`Properti "${title}" telah disimpan.\nLokasi: ${location}\nHarga: Rp ${price}\nFasilitas: ${facilities}\nDeskripsi: ${description}`);
+            // Data dikirim ke backend melalui API atau Ajax
+        });
+    </script>
+</body>
+</html>
